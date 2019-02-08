@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+
+
+
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Income Database for <%=currentUser.username%></h1>
+            <p>These are your monthly incomes</p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/database/new">Add Database Input </a>
+            </p>
+        </div>
+    </header>
+    
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+            
+            <% database.forEach(function(database){ %>
+                <div class="col-md-3 col-sm-6">
+                    <div class="panel panel-primary data-display">
+                        <div class="panel-heading">
+                            <h4 class="date"><%=database.month %></h4>
+                            <h4 class="date"><%=database.year %></h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>Hourly rate: <%=database.rate%>€/h</p>
+                            <p>Bonus:<%=database.bonus%>€</p>
+                            <p>Leave days:<%=database.vacation%></p>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+    </div>
+
+<% include ../partials/footer %>

@@ -11,3 +11,12 @@
 .delete-form {
     display: inline;
 }
+.date-months {
+    padding-right: 20px;
+}
+.date {
+    display: inline;
+}
+.data-display{
+    text-align: left;
+}
