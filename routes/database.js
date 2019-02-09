@@ -39,8 +39,8 @@ router.post("/database",middleware.isLoggedIn, function(req, res){
     //     id: req.user._id,
     //     username: req.user.username
     // };
-    console.log("Working hours: " + workHours);
-    console.log("Monthly payement: " + monthlyPayement);
+    // console.log("Working hours: " + workHours);
+    // console.log("Monthly payement: " + monthlyPayement);
     var newDatabase = {
         month: month,
         year: year, 
@@ -67,9 +67,6 @@ router.post("/database",middleware.isLoggedIn, function(req, res){
                         if(err){
                             console.log(err);
                         } else {
-                            // console.log("data " +data);
-                            console.log("izbran mesec: " + newData.month);
-                            console.log("st delovnih dni: " + calc.calcWorkdays(newData.month));
                             res.redirect("/database");
                         }
                     });
@@ -80,17 +77,17 @@ router.post("/database",middleware.isLoggedIn, function(req, res){
 });
 
 //Database Show
-router.get("/database/:id", function(req, res){
+router.get("/database/:id",middleware.isLoggedIn, function(req, res){
     Database.findById(req.params.id, function(err, foundDatabase){
       if(err){
           console.log(err);
       } else {
-          res.render("database/show", {database: foundDatabase});
+            res.render("database/show", {database: foundDatabase});
       } 
     });
 });
 //Database Edit
-router.get("/database/:id/edit", function(req, res) {
+router.get("/database/:id/edit",middleware.isLoggedIn, function(req, res) {
     console.log(req.params.id);
     Database.findById(req.params.id, function(err, foundDatabase){
         if(err){
@@ -100,10 +97,30 @@ router.get("/database/:id/edit", function(req, res) {
         }
     });
 });
+//Database update
+router.put("/database/:id",middleware.isLoggedIn, function(req, res){
+    var updatedDatabase ={};
+    
+    updatedDatabase.month = req.body.month;
+    updatedDatabase.year = req.body.year;
+    updatedDatabase.rate = Number(req.body.rate);
+    updatedDatabase.bonus = Number(req.body.bonus);
+    updatedDatabase.vacation = Number(req.body.vacation);
 
-// router.get("/database", function(req, res){
-//     console.log("Wakawaka");
-//     res.render("database/show");
-// });
+    updatedDatabase.workdays = calc.calcWorkdays(updatedDatabase.month);
+    updatedDatabase.netdays = calc.daysNet(updatedDatabase.workdays, updatedDatabase.vacation);
+    updatedDatabase.workhours = calc.calcHours(updatedDatabase.netdays);
+    updatedDatabase.payement = calc.monthlyPayement(updatedDatabase.rate, updatedDatabase.bonus, updatedDatabase.workhours);
+    
+    console.log(updatedDatabase);
+    Database.findByIdAndUpdate(req.params.id, updatedDatabase, function(err, updateDatabase){
+        if(err){
+            res.redirect("/database");
+        } else {
+            res.redirect("/database/" + req.params.id);
+        }
+    });
+});
+
 
 module.exports = router;

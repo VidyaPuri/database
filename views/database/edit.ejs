@@ -4,7 +4,7 @@
     <div class="row">
         <h1 style="text-align: center">Edit <%=database.month %> <%= database.year %> input</h1>
         <div style="width: 30%; margin: 30px auto">
-            <form action="/database" method="POST">
+            <form action="/database/<%=database._id%>?_method=PUT" method="POST">
                 <!--<div class="form-group">-->
                 <!--    <input class="form-control" type="month" value="2019-01" name="month" placeholder="month">-->
                 <!--</div>-->
@@ -53,15 +53,15 @@
                         </div>
                         <div class="form-group">
                             <label for="rate">Hourly rate:</label>
-                            <input id="rate"class="form-control" type="number" name="database[rate]" value="<%=database.rate%>" min="0.01" step="0.01">
+                            <input id="rate"class="form-control" type="number" name="rate" value="<%=database.rate%>" min="0.01" step="0.01">
                         </div>
                         <div class="form-group">
                             <label for="rate">Bonus:</label>
-                            <input id="bonus" class="form-control" type="number" name="database[bonus]" value="<%=database.bonus%>" min="0" step="10">
+                            <input id="bonus" class="form-control" type="number" name="bonus" value="<%=database.bonus%>" min="0" step="10">
                         </div>
                         <div class="form-group">
                             <label for="rate">Vacation:</label>
-                            <input id="vacation" class="form-control" type="number" name="database[vacation]" value="<%=database.vacation%>" min="0" step="0.5">
+                            <input id="vacation" class="form-control" type="number" name="vacation" value="<%=database.vacation%>" min="0" step="0.5">
                         </div>
                         <div class="form-group">
                             <button class="btn btn-lg btn-primary btn-block">Submit!</button>
