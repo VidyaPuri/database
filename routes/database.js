@@ -14,6 +14,36 @@ router.get("/database", middleware.isLoggedIn, function(req, res){
             console.log(err);
         } else {
             //var database = user.dataB;
+            var years = [ 2008, 2018, 2019, 2014 ];
+            var data = [];
+            //console.log(user);
+            var databases = user.dataB;
+            //console.log("data: "+ data);
+
+            //console.log("type of data: "+ typeof data);
+            for(var i = 0; i<years.length;i++){
+                databases.forEach(function(database){
+                    // console.log("years[i]: "+years[i]);
+                    // console.log("database.year: "+database.year);
+                    if(years[i] === database.year){
+                        console.log("id po letih: "+database.id);
+                    }
+                }
+            )};
+                //console.log("letnca: "+database.year);
+                // data.push(database);
+                // years.push(database.year);
+            
+            // console.log("Years: "+ years);
+            // console.log("Data array: "+data);
+            // Object.keys(data).forEach(function(year) {
+            //     console.log(entry);
+            // 	if(entry === year){
+            // 	  year: user.dataB[entry];
+            // 	  console.log("entry: " + data[entry]);
+            //     }
+            // });
+            // console.log("years:" + years);
             res.render("database/index", {database: user.dataB, page: 'database'});
         }
     });
@@ -24,34 +54,11 @@ router.get("/database/new",middleware.isLoggedIn, function(req, res){
 });
 //Database Create
 router.post("/database",middleware.isLoggedIn, function(req, res){
-    var month = req.body.month;
-    var year = req.body.year;
-    var rate = Number(req.body.rate);
-    var bonus = Number(req.body.bonus);
-    var vacation = Number(req.body.vacation);
     
-    var workDays = calc.calcWorkdays(month);
-    var netDays = calc.daysNet(workDays, vacation);
-    var workHours = calc.calcHours(netDays);
-    var monthlyPayement = calc.monthlyPayement(rate, bonus, workHours);
-    // var desc = req.body.description;
-    // var owner = {
-    //     id: req.user._id,
-    //     username: req.user.username
-    // };
-    // console.log("Working hours: " + workHours);
-    // console.log("Monthly payement: " + monthlyPayement);
-    var newDatabase = {
-        month: month,
-        year: year, 
-        rate: rate,
-        bonus: bonus,
-        vacation: vacation,
-        workdays: workDays,
-        netdays: netDays,
-        workhours: workHours,
-        payement: monthlyPayement
-    };
+    var newDatabase = {};
+    newDatabase = calc.calculations(req);
+    console.log(newDatabase);
+
     Database.create(newDatabase, function(err, newData){
         if(err){
             console.log(err);
@@ -99,18 +106,9 @@ router.get("/database/:id/edit",middleware.isLoggedIn, function(req, res) {
 });
 //Database update
 router.put("/database/:id",middleware.isLoggedIn, function(req, res){
-    var updatedDatabase ={};
     
-    updatedDatabase.month = req.body.month;
-    updatedDatabase.year = req.body.year;
-    updatedDatabase.rate = Number(req.body.rate);
-    updatedDatabase.bonus = Number(req.body.bonus);
-    updatedDatabase.vacation = Number(req.body.vacation);
-
-    updatedDatabase.workdays = calc.calcWorkdays(updatedDatabase.month);
-    updatedDatabase.netdays = calc.daysNet(updatedDatabase.workdays, updatedDatabase.vacation);
-    updatedDatabase.workhours = calc.calcHours(updatedDatabase.netdays);
-    updatedDatabase.payement = calc.monthlyPayement(updatedDatabase.rate, updatedDatabase.bonus, updatedDatabase.workhours);
+    var updatedDatabase ={};
+    updatedDatabase = calc.calculations(req);
     
     console.log(updatedDatabase);
     Database.findByIdAndUpdate(req.params.id, updatedDatabase, function(err, updateDatabase){
@@ -122,5 +120,16 @@ router.put("/database/:id",middleware.isLoggedIn, function(req, res){
     });
 });
 
+//destroy database
+router.delete("/database/:id", middleware.isLoggedIn, function(req, res){
+    Database.findByIdAndRemove(req.params.id, function(err){
+        if(err) {
+            console.log(err);
+            res.redirect("/database/:id");
+        } else {
+            res.redirect("/database");
+        }
+    });
+});
 
 module.exports = router;

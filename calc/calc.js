@@ -1,5 +1,5 @@
 var calc = {};
-var workdays = {
+calc.workdays = {
     January: "21",
     February: "19",
     March: "22",
@@ -16,9 +16,9 @@ var workdays = {
 // Zakaj tukaj ne morem prej iz loopa mi ni jasno
 calc.calcWorkdays = function(mesec){
     var workDays;
-    Object.keys(workdays).forEach(function(month) {
+    Object.keys(calc.workdays).forEach(function(month) {
     	if(mesec === month){
-    	    workDays = workdays[month];
+    	    workDays = calc.workdays[month];
         }
     });
     return  workDays;
@@ -33,5 +33,20 @@ calc.monthlyPayement = function(rate, bonus, hours){
     var payout = rate * hours + bonus;
     return payout;
 };
+
+calc.calculations = function(req){
+    var database ={};
+    database.month = req.body.month;
+    database.year = req.body.year;
+    database.rate = Number(req.body.rate);
+    database.bonus = Number(req.body.bonus);
+    database.vacation = Number(req.body.vacation);
+
+    database.workdays = calc.calcWorkdays(database.month);
+    database.netdays = calc.daysNet(database.workdays, database.vacation);
+    database.workhours = calc.calcHours(database.netdays);
+    database.payement = calc.monthlyPayement(database.rate, database.bonus, database.workhours).toFixed(2);
+    return database;
+}
 
 module.exports = calc;

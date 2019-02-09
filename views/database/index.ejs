@@ -14,26 +14,27 @@
     
     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
             
-            <% database.forEach(function(database){ %>
-                <div class="col-md-3 col-sm-6">
-                    <div class="panel panel-primary data-display">
-                        <div class="panel-heading">
-                            <h4 class="date"><%=database.month %></h4>
-                            <h4 class="date"><%=database.year %></h4>
-                        </div>
-                        <div class="panel-body">
-                            <p>Hourly rate: <%=database.rate%>€/h</p>
-                            <p>Bonus: <%=database.bonus%>€</p>
-                            <p>Leave days: <%=database.vacation%></p>
-                            <p><strong>Monthly payement: <%=database.payement%>€</strong></p>
-                            <p>
-                                <a href="/database/<%= database._id %>" class="btn btn-primary">More Info</a>
-                            </p>
-                        
+
+                <% database.forEach(function(database){ %>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="panel panel-primary data-display">
+                            <div class="panel-heading">
+                                <h4 class="date"><%=database.month %></h4>
+                                <h4 class="date"><%=database.year %></h4>
+                            </div>
+                            <div class="panel-body">
+                                <p>Hourly rate: <%=database.rate%>€/h</p>
+                                <p>Bonus: <%=database.bonus%>€</p>
+                                <p>Leave days: <%=database.vacation%></p>
+                                <p><strong>Monthly payement: <%=database.payement%>€</strong></p>
+                                <p>
+                                    <a href="/database/<%= database._id %>" class="btn btn-primary">More Info</a>
+                                </p>
+                            
+                            </div>
                         </div>
                     </div>
-                </div>
-            <% }); %>
+                <% }); %>
     </div>
 
 <% include ../partials/footer %>
