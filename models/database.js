@@ -6,8 +6,12 @@ var databaseSchema = mongoose.Schema({
     rate: Number,
     bonus: Number,
     vacation: Number,
+    workdays: Number,
+    netdays: Number,
+    workhours: Number,
+    payement: Number,
     //description: String,
-    //createdAt: { type: Date, default: Date.now },
+    createdAt: { type: Date, default: Date.now },
     // owner: {
     //     id: {
     //         type: mongoose.SchemaTypes.ObjectId,

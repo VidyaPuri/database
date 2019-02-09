@@ -23,8 +23,13 @@
                         </div>
                         <div class="panel-body">
                             <p>Hourly rate: <%=database.rate%>€/h</p>
-                            <p>Bonus:<%=database.bonus%>€</p>
-                            <p>Leave days:<%=database.vacation%></p>
+                            <p>Bonus: <%=database.bonus%>€</p>
+                            <p>Leave days: <%=database.vacation%></p>
+                            <p><strong>Monthly payement: <%=database.payement%>€</strong></p>
+                            <p>
+                                <a href="/database/<%= database._id %>" class="btn btn-primary">More Info</a>
+                            </p>
+                        
                         </div>
                     </div>
                 </div>

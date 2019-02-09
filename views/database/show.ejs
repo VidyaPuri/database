@@ -1,0 +1,50 @@
+<% include ../partials/header %>
+
+    
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Database</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info1</li>
+                <li class="list-group-item">Info2</li>
+                <li class="list-group-item">Info2</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <div class="caption-full">
+                    <div class="panel panel-primary data-display">
+                        <div class="panel-heading">
+                            <h1 class="inline"><%=currentUser.username%></h1>
+                            <span class="pull-right">
+                                <h2 class="inline"><%=database.month %></h2>
+                                <h2 class="inline"><%=database.year %></h2>
+                            </span>
+                        </div>
+                        <div class="panel-body">
+                            <h4>Planned workdays: <%= database.workdays %> days</h4>
+                            <h4>Vacation taken: <%= database.vacation %> days</h4>
+                            <h4>Actual workdays: <%= database.netdays %> days</h4>
+                            <h4>Workhours (actual/planned): <%= database.workhours %> / <%= database.workdays*8 %> hours</p>
+                            <h4>Hourly payement rate: <%= database.rate %> €/h </h4>
+                            <h4>Bonus payement: <%= database.bonus %> € </h4>
+                            <h3>Final payement: <%= database.payement %> € </h3>
+                            
+                            <p>
+                             <em>Created <%= moment(database.createdAt).fromNow() %></em>
+                            </p>
+                         </div>   
+                        
+                    </div>
+                        <a class="btn btn-warning" href="/database/<%=database._id %>/edit">Edit</a>
+                        <form class="delete-form" action="/campgrounds/?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<% include ../partials/footer %>

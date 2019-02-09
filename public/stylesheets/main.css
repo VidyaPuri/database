@@ -7,7 +7,6 @@
 .thumbnail .caption-full {
     padding: 9px;
 }
-
 .delete-form {
     display: inline;
 }
@@ -19,4 +18,7 @@
 }
 .data-display{
     text-align: left;
+}
+.inline {
+    display: inline;
 }

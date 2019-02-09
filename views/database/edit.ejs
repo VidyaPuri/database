@@ -2,7 +2,7 @@
 
 
     <div class="row">
-        <h1 style="text-align: center">Create a New Database input</h1>
+        <h1 style="text-align: center">Edit <%=database.month %> <%= database.year %> input</h1>
         <div style="width: 30%; margin: 30px auto">
             <form action="/database" method="POST">
                 <!--<div class="form-group">-->
@@ -17,7 +17,8 @@
                          <span class="date-months">
                             <label for="month">Month:</label>
                             <select name="month">
-                              <option selected>January</option>
+                              <option selected><%=database.month%></option>
+                              <option>January</option>
                               <option>February</option>
                               <option>March</option>
                               <option>April</option>
@@ -34,7 +35,8 @@
                           <span class="date-years">
                             <label for="year">Year:</label>
                             <select name="year">
-                              <option selected>2019</option>
+                              <option selected> <%=database.year%></option>
+                              <option>2019</option>
                               <option>2018</option>
                               <option>2017</option>
                               <option>2016</option>
@@ -51,15 +53,15 @@
                         </div>
                         <div class="form-group">
                             <label for="rate">Hourly rate:</label>
-                            <input id="rate"class="form-control" type="number" name="rate" placeholder="rate" min="0.01" step="0.01">
+                            <input id="rate"class="form-control" type="number" name="database[rate]" value="<%=database.rate%>" min="0.01" step="0.01">
                         </div>
                         <div class="form-group">
                             <label for="rate">Bonus:</label>
-                            <input id="bonus" class="form-control" type="number" name="bonus" value=0 min="0" step="10">
+                            <input id="bonus" class="form-control" type="number" name="database[bonus]" value="<%=database.bonus%>" min="0" step="10">
                         </div>
                         <div class="form-group">
                             <label for="rate">Vacation:</label>
-                            <input id="vacation" class="form-control" type="number" name="vacation" value=0 min="0" step="0.5">
+                            <input id="vacation" class="form-control" type="number" name="database[vacation]" value="<%=database.vacation%>" min="0" step="0.5">
                         </div>
                         <div class="form-group">
                             <button class="btn btn-lg btn-primary btn-block">Submit!</button>
