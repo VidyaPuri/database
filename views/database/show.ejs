@@ -2,6 +2,11 @@
 
     
     <div class="row">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1><%=database.month%> Dashboard</h1>
+            <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+          </div>
         <div class="col-md-3">
             <p class="lead">Database</p>
             <div class="list-group">
@@ -10,37 +15,70 @@
                 <li class="list-group-item">Info2</li>
             </div>
         </div>
+          
         <div class="col-md-9">
-            <div class="thumbnail">
-                <div class="caption-full">
-                    <div class="panel panel-primary data-display">
-                        <div class="panel-heading">
-                            <h1 class="inline"><%=currentUser.username%></h1>
-                            <span class="pull-right">
-                                <h2 class="inline"><%=database.month %></h2>
-                                <h2 class="inline"><%=database.year %></h2>
-                            </span>
-                        </div>
-                        <div class="panel-body">
-                            <h4>Planned workdays: <%= database.workdays %> days</h4>
-                            <h4>Vacation taken: <%= database.vacation %> days</h4>
-                            <h4>Actual workdays: <%= database.netdays %> days</h4>
-                            <h4>Workhours (actual/planned): <%= database.workhours %> / <%= database.workdays*8 %> hours</p>
-                            <h4>Hourly payement rate: <%= database.rate %> €/h </h4>
-                            <h4>Bonus payement: <%= database.bonus %> € </h4>
-                            <h3>Final payement: <%= database.payement %> € </h3>
-                            
-                            <p>
-                             <em>Created <%= moment(database.createdAt).fromNow() %></em>
-                            </p>
-                         </div>   
-                        
-                    </div>
-                        <a class="btn btn-warning" href="/database/<%=database._id %>/edit">Edit</a>
-                        <form class="delete-form" action="/database/<%=database._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
-                </div>
+            <div class="col-md-9 order-md-2 mb-4">
+                <h1 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted"><%=database.month%></span>
+                    <span class="badge badge-secondary badge-pill"><%=database.year%></span>
+                </h1>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h4 class="my-0">Planned workdays:</h4>
+                        <small class="text-muted">Total working days in <%=database.month%></small>
+                      </div>
+                      <span class="text-muted db-fonts"><%=database.workdays%> days</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h4 class="my-0">Vacations taken:</h4>
+                        <small class="text-muted">Non-paid vacation</small>
+                      </div>
+                      <span class="text-muted db-fonts"><%= database.vacation %> days</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h4 class="my-0">Actual workdays:</h4>
+                        <small class="text-muted">Net worked days</small>
+                      </div>
+                      <span class="text-muted db-fonts"><%= database.netdays %> days</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h4 class="my-0">Workhours:</h4>
+                        <small class="text-muted">(actual/planned)</small>
+                      </div>
+                      <span class="text-muted db-fonts"><%= database.workhours %> / <%= database.workdays*8 %> hours</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h4 class="my-0">Hourly payement rate:</h4>
+                        <small class="text-muted">Hourly rate in euros</small>
+                      </div>
+                      <span class="text-muted db-fonts"><%= database.rate %>€</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h4 class="my-0">Bonus payement:</h4>
+                        <small class="text-muted">Additional bonus payements</small>
+                      </div>
+                      <span class="text-muted db-fonts"><%= database.bonus %>€</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h3 class="my-0">Final payout:</h3>
+                        <small class="text-muted"></small>
+                      </div>
+                      <h2 class="my-0"><strong><%= database.payement %>€</strong></h2>
+                    </li>
+                </ul>
+                <a class="btn btn-warning" href="/database/<%=database._id %>/edit">Edit</a>
+                <form class="delete-form" action="/database/<%=database._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                
+                <a class="btn btn-primary float-right" href="/database">Back</a>
             </div>
         </div>
     </div>

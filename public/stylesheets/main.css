@@ -1,3 +1,5 @@
+
+
 .thumbnail img {
     width: 100%;
 }
@@ -21,4 +23,26 @@
 }
 .inline {
     display: inline;
+}
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.db-fonts {
+    font-size: 24px;
 }

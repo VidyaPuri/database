@@ -4,6 +4,7 @@ var Database    = require("../models/database");
 var middleware  = require("../middleware");
 var User        = require("../models/user");
 var calc        = require("../calc/calc");
+var _           = require('lodash');
 
 // INDEX
 router.get("/database", middleware.isLoggedIn, function(req, res){
@@ -14,22 +15,35 @@ router.get("/database", middleware.isLoggedIn, function(req, res){
             console.log(err);
         } else {
             //var database = user.dataB;
-            var years = [ 2008, 2018, 2019, 2014 ];
-            var data = [];
+            //NOOOOO IDEAEEAAAAAAAAAAAAAAAAAAAAAAA
+            // var years = [ 2008, 2018, 2019, 2014 ];
+            // var datas = [];
             //console.log(user);
             var databases = user.dataB;
-            //console.log("data: "+ data);
+        //     //console.log("data: "+ data);
 
-            //console.log("type of data: "+ typeof data);
-            for(var i = 0; i<years.length;i++){
-                databases.forEach(function(database){
-                    // console.log("years[i]: "+years[i]);
-                    // console.log("database.year: "+database.year);
-                    if(years[i] === database.year){
-                        console.log("id po letih: "+database.id);
-                    }
-                }
-            )};
+        //     //console.log("type of data: "+ typeof data);
+            
+        //     for(var i = 0; i<years.length;i++){
+        //         databases.forEach(function(database){
+        //             // console.log("years[i]: "+years[i]);
+        //             // console.log("database.year: "+database.year);
+        //             if(database.year === years[i]){
+        //                 //console.log("id po letih: "+ database);
+        //                 datas.push(database);
+        //             }
+        //         }
+        //     )};
+        //     datas.forEach(function(dejta){
+        //         //console.log("dejta:" + dejta);
+        //     });
+        //   //console.log("data: " +datas);
+            
+            var grouped = _.groupBy(databases, function(data) {
+              return data.year;
+            });
+            
+            //console.log(JSON.stringify(grouped));
                 //console.log("letnca: "+database.year);
                 // data.push(database);
                 // years.push(database.year);
@@ -44,7 +58,7 @@ router.get("/database", middleware.isLoggedIn, function(req, res){
             //     }
             // });
             // console.log("years:" + years);
-            res.render("database/index", {database: user.dataB, page: 'database'});
+            res.render("database/index", {database: databases, groupdata: grouped, page: 'database'});
         }
     });
 });
