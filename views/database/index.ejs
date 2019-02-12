@@ -12,31 +12,34 @@
         </div>
     </header>
     
-    <div class="row text-center">
-        <% database.forEach(function(database){ %>
-            <div class="card-deck col-lg-3 col-md-4 col-sm-6 text-center">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header text-white bg-primary">
-                        <h4 class="my-0 font-weight-normal"><%=database.month%> <%=database.year%></h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title inline"><%=database.rate%> <small class="text-muted">€/h</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                        
-                          <li>Bonus: <%=database.bonus%>€</li>
-                          <li>Leave days: <%=database.vacation%></li>
-                          <li>Payout:</li>
-                          <li><h4><%=database.payement%>€</h4></li>
-                        </ul>
-                        <a href="/database/<%= database._id %>" class="btn btn-lg btn-block btn-outline-primary">More Info</a>
-                    </div>
-                </div>
+
+    
+        <% Object.keys(data).reverse().forEach(function(idx) { %>
+            <div>
+                <hr>
+                    <h2><%=data[idx].year %></h2>
+                <hr>
             </div>
-        <% }); %>
-        
-        <%=groupdata["2019"][0]%>
-
-
-    </div>
-
+            <div class="row">
+                <% for(let i=0;i<data[idx].db.length;i++){ %> 
+                    <div class="card-deck col-lg-3 col-md-4 col-sm-6 text-center">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header text-white bg-primary">
+                                <h4 class="my-0 font-weight-normal"><%=data[idx].db[i].month%> <%=data[idx].db[i].year%></h4>
+                            </div>            
+                            <div class="card-body">
+                                    <h1 class="card-title pricing-card-title inline"><%=data[idx].db[i].rate%> <small class="text-muted">€/h</small></h1>
+                                    <ul class="list-unstyled mt-3 mb-4data">
+                                      <li>Bonus: <%=data[idx].db[i].bonus%>€</li>
+                                      <li>Leave days: <%=data[idx].db[i].vacation%></li>
+                                      <li>Payout:</li>
+                                      <li><h4><%=data[idx].db[i].payement%>€</h4></li>
+                                    </ul>
+                                    <a href="/database/<%= data[idx].db[i]._id %>" class="btn btn-lg btn-block btn-outline-primary">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+            <% } %>
+            </div>
+        <% }) %>
 <% include ../partials/footer %>
