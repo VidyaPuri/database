@@ -44,32 +44,52 @@ router.get("/database/new",middleware.isLoggedIn, function(req, res){
 //Database Create
 router.post("/database",middleware.isLoggedIn, function(req, res){
     
-    var newDatabase = {};
-    newDatabase = calc.calculations(req);
-    console.log(newDatabase);
 
-    Database.create(newDatabase, function(err, newData){
+    Database.find({month: req.body.month, year: req.body.year}, function(err, found){
         if(err){
-            console.log(err);
+            console.log("There was some error");
         } else {
-            User.findById(req.user._id, function(err, foundUser){
-                if(err){
-                    console.log(err);
-                } else {
-                    // console.log("newData " +newData);
-                    // console.log("foundUser " + foundUser);
-                    foundUser.dataB.push(newData);
-                    foundUser.save(function(err, data){
-                        if(err){
-                            console.log(err);
-                        } else {
-                            res.redirect("/database");
-                        }
-                    });
-                }
-            });
+            if(_.isEmpty(found)){
+                console.log("Creating new database entry");
+                var newDatabase = {};
+                newDatabase = calc.calculations(req);
+                //console.log(newDatabase);
+                Database.create(newDatabase, function(err, newData){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        User.findById(req.user._id, function(err, foundUser){
+                            if(err){
+                                console.log(err);
+                            } else {
+                                // console.log("newData " +newData);
+                                // console.log("foundUser " + foundUser);
+                                foundUser.dataB.push(newData);
+                                foundUser.save(function(err, data){
+                                    if(err){
+                                        console.log(err);
+                                    } else {
+                                        res.redirect("/database");
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                console.log("Entry " + req.body.month + " " + req.body.year + " already exists in the database!");
+                res.redirect("/database/new");
+            }
         }
     });
+  
+        //res.redirect("/database/new");
+        //console.log(Database.find({month: req.body.month}));
+ 
+        //console.log("database find: " +Database.find({month: req.body.month}));
+    
+
+    
 });
 
 //Database Show
