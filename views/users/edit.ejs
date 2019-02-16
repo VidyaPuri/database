@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 <div class="container">
   <div class="py-5 text-center">
@@ -7,61 +7,25 @@
     <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
     </div>
 
-
-<!--<div class="row">-->
-<!--    <div class="col-md-12">-->
-<!--        <form class="form-signin" action="/register" method="post">-->
-<!--          <h1 class="h1 mb-3 font-weight-strong">Please Sign up</h1>-->
-          
-<!--          <label for="inputEmail" class="sr-only">Username</label>-->
-<!--          <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus>-->
-          
-<!--          <label for="inputPassword" class="sr-only">Password</label>-->
-<!--          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>-->
-          
-<!--          <label for="inputEmail" class="sr-only">Email</label>-->
-<!--          <input type="text" id="inputEmail" class="form-control" name="email" placeholder="janez.kranjc@gmail.com" required autofocus>-->
-          
-<!--          <label for="inputEmail" class="sr-only">First Name</label>-->
-<!--          <input type="text" id="inputFirstName" class="form-control" name="firstname" placeholder="Firstname" autofocus>-->
-          
-<!--          <label for="inputEmail" class="sr-only">Last Name</label>-->
-<!--          <input type="text" id="inputLastName" class="form-control" name="lastname" placeholder="Lastname" autofocus>-->
-          
-<!--          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up!</button>-->
-<!--        </form>-->
-<!--        <form class="form-signin">-->
-<!--            <a href="/database">Go Back</a>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class="row d-flex justify-content-center">
     <div class="col-md-8 order-md-1">
-          <h1 class="mb-3">Sign up form</h1>
-            <form class="needs-validation" action="/register" method="post">
+          <h1 class="mb-3">Edit profile form</h1>
+            <form class="needs-validation" action="/users/<%=user._id%>?_method=PUT" method="POST">
                 <div class="mb-3">
                   <label for="username">Username</label>
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">@</span>
                     </div>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required autofocus>
+                    <input type="text" class="form-control" id="username" name="username" value="<%=user.username%>" required autofocus>
                     <div class="invalid-feedback" style="width: 100%;">
                       Your username is required.
                     </div>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="email">Password </label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="password" required autofocus>
-                  <div class="invalid-feedback">
-                    Please enter a valid email address.
-                  </div>
-                </div>
-                <div class="mb-3">
                   <label for="email">Email </label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required autofocus>
+                  <input type="email" class="form-control" id="email" name="email" value="<%=user.email%>" required autofocus>
                   <div class="invalid-feedback">
                     Please enter a valid email address.
                   </div>
@@ -69,14 +33,14 @@
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label for="firstName">First name <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="firstName" name="firstname" placeholder="" value="" autofocus>
+                    <input type="text" class="form-control" id="firstName" name="firstname" placeholder="First name" value="<%=user.firstname%>" autofocus>
                     <div class="invalid-feedback">
                       Valid first name is required.
                     </div>
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="lastName">Last name <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="lastName" name="lastname" placeholder="" value="" autofocus>
+                    <input type="text" class="form-control" id="lastName" name="lastname" placeholder="Last name" value="<%=user.lastname%>" autofocus>
                     <div class="invalid-feedback">
                       Valid last name is required.
                     </div>
@@ -84,7 +48,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="avatar">Avatar <span class="text-muted">(Optional)</span></label>
-                  <input type="text" class="form-control" id="avatar" name="avatar" placeholder="avatar url" autofocus>
+                  <input type="text" class="form-control" id="avatar" name="avatar" value="<%=user.avatar%>" autofocus>
                   <div class="invalid-feedback">
                     Please enter a valid avatar URL.
                   </div>
@@ -94,7 +58,7 @@
                      <label for="country_selector">Country <span class="text-muted">(Optional)</span></label>
                   	
                         <div class="form-item ">
-                            <input class="custom-select d-block w-150" name="country" id="country_selector" type="text">
+                            <input class="custom-select d-block w-150" name="country" id="country_selector" value="<%=user.country%>" type="text">
                             <label for="country_selector" style="display:none;">Select a country here...</label>
                         </div>
                         <button type="submit" style="display:none;">Submit</button>
@@ -107,7 +71,7 @@
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="zip">City <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="zip" name="city" placeholder="Enter your city" >
+                    <input type="text" class="form-control" id="zip" name="city" value="<%=user.city%>" >
                   </div>
                 </div>
                 <hr class="mb-4">
@@ -118,4 +82,4 @@
       </div>
     
 </div>
-<% include ./partials/footer %>
+<% include ../partials/footer %>

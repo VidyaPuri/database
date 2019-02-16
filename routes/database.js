@@ -96,7 +96,7 @@ router.get("/database/:id",middleware.isLoggedIn, function(req, res){
 });
 //Database Edit
 router.get("/database/:id/edit",middleware.isLoggedIn, function(req, res) {
-    console.log(req.params.id);
+    //console.log(req.params.id);
     Database.findById(req.params.id, function(err, foundDatabase){
         if(err){
             console.log(err);

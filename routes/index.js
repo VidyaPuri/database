@@ -2,7 +2,7 @@ var express     = require("express");
 var router      = express.Router();
 var passport    = require("passport");
 var User        = require("../models/user");
-
+var middleware  = require("../middleware");
 //root route
 router.get("/", function(req, res){
     res.render("landing");
@@ -17,9 +17,12 @@ router.get("/register", function(req, res) {
 router.post("/register", function(req, res) {
     var newUser = new User({
         username: req.body.username,
-        firstName: req.body.firstname,
-        lastName: req.body.lastname,
-        email: req.body.email
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        avatar: req.body.avatar,
+        country: req.body.country,
+        city: req.body.city
     });
     User.register(newUser, req.body.password, function(err, user){
         if(err){
@@ -60,9 +63,55 @@ router.get("/users/:id", function(req, res){
             req.flash("error", "Something went wrong!");
             res.redirect("/database");
         } else {
-            console.log(foundUser.username);
-            console.log(foundUser);
+            // console.log(foundUser.username);
+            // console.log(foundUser);
+            // console.log("avatar: " +foundUser.avatar);
+            // console.log("id: "+ foundUser._id);
             res.render("users/show", {user: foundUser});
+        }
+    });
+});
+
+//edit user profile form
+router.get("/users/:id/edit", middleware.isLoggedIn, function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("users/edit", {user: foundUser});
+        }
+    });
+});
+//user update
+router.put("/users/:id", function(req, res){
+    
+    var updatedUser = {
+        username: req.body.username,
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        avatar: req.body.avatar,
+        country: req.body.country,
+        city: req.body.city
+    };
+    
+    console.log(updatedUser);
+    User.findOneAndUpdate(req.params.id, updatedUser, function(err, updateUser){
+        if(err){
+            res.redirect("/users/" + req.params.id);
+            console.log("error " + err);
+        } else {
+            res.redirect("/users/" + req.params.id);
+        }
+    });
+});
+
+router.delete("/users/:id", function(req, res){
+    User.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/users/:id");
+        }else{
+            res.redirect("/");
         }
     });
 });
