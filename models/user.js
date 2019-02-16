@@ -11,6 +11,7 @@ var UserSchema = new mongoose.Schema({
     city: String,
     country: String,
     avatar: String,
+    description: String,
     createdAt: { type: Date, default: Date.now },
     dataB: [
         {

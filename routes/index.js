@@ -92,7 +92,8 @@ router.put("/users/:id", function(req, res){
         lastname: req.body.lastname,
         avatar: req.body.avatar,
         country: req.body.country,
-        city: req.body.city
+        city: req.body.city,
+        description: req.body.description
     };
     
     console.log(updatedUser);
@@ -102,6 +103,7 @@ router.put("/users/:id", function(req, res){
             console.log("error " + err);
         } else {
             res.redirect("/users/" + req.params.id);
+            console.log("updateUser: " + updateUser);
         }
     });
 });

@@ -74,8 +74,13 @@
                     <input type="text" class="form-control" id="zip" name="city" value="<%=user.city%>" >
                   </div>
                 </div>
+                
+                <div class="mb-3">
+                  <label for="description">Description <span class="text-muted">(Optional)</span></label>
+                   <textarea class="form-control" rows="3" id="description" name="description" autofocus><%=user.description%></textarea>
+                </div>
                 <hr class="mb-4">
-                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up!</button>
+                 <button class="btn btn-lg btn-primary btn-block" type="submit">Submit changes</button>
                 <!--<button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>-->
             </form>
         </div>
