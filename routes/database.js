@@ -6,6 +6,8 @@ var User        = require("../models/user");
 var calc        = require("../calc/calc");
 var _           = require('lodash');
 
+
+
 // INDEX
 router.get("/database", middleware.isLoggedIn, function(req, res){
         //console.log(req.user.id);
@@ -45,15 +47,14 @@ router.get("/database/new",middleware.isLoggedIn, function(req, res){
 router.post("/database",middleware.isLoggedIn, function(req, res){
     
 
-    Database.find({month: req.body.month, year: req.body.year}, function(err, found){
+    Database.find({month: req.body.month, year: req.body.year, userid: req.user._id}, function(err, found){
         if(err){
             console.log("There was some error");
-        } else {
-            if(_.isEmpty(found)){
+        } else if(_.isEmpty(found)){
                 console.log("Creating new database entry");
                 var newDatabase = {};
                 newDatabase = calc.calculations(req);
-                //console.log(newDatabase);
+                console.log(newDatabase);
                 Database.create(newDatabase, function(err, newData){
                     if(err){
                         console.log(err);
@@ -62,13 +63,12 @@ router.post("/database",middleware.isLoggedIn, function(req, res){
                             if(err){
                                 console.log(err);
                             } else {
-                                // console.log("newData " +newData);
-                                // console.log("foundUser " + foundUser);
                                 foundUser.dataB.push(newData);
                                 foundUser.save(function(err, data){
                                     if(err){
                                         console.log(err);
                                     } else {
+                                        req.flash("success", "Entry " + req.body.month + " " + req.body.year + " added to the database.");
                                         res.redirect("/database");
                                     }
                                 });
@@ -78,18 +78,10 @@ router.post("/database",middleware.isLoggedIn, function(req, res){
                 });
             } else {
                 console.log("Entry " + req.body.month + " " + req.body.year + " already exists in the database!");
+                req.flash("error", "Entry " + req.body.month + " " + req.body.year + " already exists in the database. Please try again");
                 res.redirect("/database/new");
             }
-        }
     });
-  
-        //res.redirect("/database/new");
-        //console.log(Database.find({month: req.body.month}));
- 
-        //console.log("database find: " +Database.find({month: req.body.month}));
-    
-
-    
 });
 
 //Database Show

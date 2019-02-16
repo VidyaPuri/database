@@ -46,6 +46,7 @@ calc.calculations = function(req){
     database.netdays = calc.daysNet(database.workdays, database.vacation);
     database.workhours = calc.calcHours(database.netdays);
     database.payement = calc.monthlyPayement(database.rate, database.bonus, database.workhours).toFixed(2);
+    database.userid = req.user._id;
     return database;
 }
 

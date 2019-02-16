@@ -10,7 +10,7 @@ var databaseSchema = mongoose.Schema({
     netdays: Number,
     workhours: Number,
     payement: Number,
-    //description: String,
+    userid: mongoose.SchemaTypes.ObjectId, 
     createdAt: { type: Date, default: Date.now },
     // owner: {
     //     id: {
