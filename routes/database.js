@@ -5,11 +5,46 @@ var middleware  = require("../middleware");
 var User        = require("../models/user");
 var calc        = require("../calc/calc");
 var _           = require('lodash');
-
+let service     = require("../services/service");
 
 
 // INDEX
 router.get("/database", middleware.isLoggedIn, function(req, res){
+    let data = [];
+        //console.log(req.user.id);
+    //Database.find({}, function(err, allDatabases){
+    // User.findById(req.user._id).populate("dataB").exec(function(err, user){
+    //     if(err){
+    //         console.log(err);
+    //     } else {
+
+    //         var databases = user.dataB;
+
+    //         let data =[];
+    //         let grouped = _.groupBy(databases, function(data) {
+    //           return data.year;
+    //         });
+            
+    //         Object.keys(grouped).forEach(function(year,index) { 
+    //             for(let i=0;i<grouped[year].length;i++){
+    //                 data[index]= {
+    //                   "year": year,                 
+    //                   "db": grouped[year]   
+    //               }; 
+    //             }  
+    //         }); 
+
+    //         //console.log(JSON.stringify(data));
+    //         res.render("database/index", {database: databases, groupdata: grouped, data: data, page: 'database'});
+    //     }
+    // });
+    data = service.getData(req);
+    console.log(typeof data);
+    console.log("klican: " +JSON.stringify(data));
+});
+
+//json send
+router.get("/getCharData", middleware.isLoggedIn, function(req, res){
         //console.log(req.user.id);
     //Database.find({}, function(err, allDatabases){
     User.findById(req.user._id).populate("dataB").exec(function(err, user){
@@ -35,7 +70,9 @@ router.get("/database", middleware.isLoggedIn, function(req, res){
 
             //console.log(JSON.stringify(data));
        
-            res.render("database/index", {database: databases, groupdata: grouped, data: data, page: 'database'});
+            //res.render("database/index", {database: databases, groupdata: grouped, data: data, page: 'database'});
+            console.log(JSON.stringify(data));
+            res.json({data: data});
         }
     });
 });
@@ -93,7 +130,8 @@ router.get("/database/:id",middleware.isLoggedIn, function(req, res){
             res.render("database/show", {database: foundDatabase});
       } 
     });
-});
+});    
+
 //Database Edit
 router.get("/database/:id/edit",middleware.isLoggedIn, function(req, res) {
     //console.log(req.params.id);

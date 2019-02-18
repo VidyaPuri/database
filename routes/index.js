@@ -57,7 +57,7 @@ router.get("/logout", function(req, res) {
 });
 
 //show user profile form
-router.get("/users/:id", function(req, res){
+router.get("/users/:id", middleware.isLoggedIn, function(req, res){
     User.findById(req.params.id, function(err, foundUser){
         if(err){
             req.flash("error", "Something went wrong!");
