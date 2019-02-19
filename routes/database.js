@@ -38,42 +38,47 @@ router.get("/database", middleware.isLoggedIn, function(req, res){
     //         res.render("database/index", {database: databases, groupdata: grouped, data: data, page: 'database'});
     //     }
     // });
-    data = service.getData(req);
-    console.log(typeof data);
-    console.log("klican: " +JSON.stringify(data));
+    service.getData(req).then((data)=>{
+        //console.log("klican: " +JSON.stringify(data));
+        res.render("database/index", {data: data, page: 'database'});
+        
+    });
+        
 });
 
 //json send
 router.get("/getCharData", middleware.isLoggedIn, function(req, res){
         //console.log(req.user.id);
     //Database.find({}, function(err, allDatabases){
-    User.findById(req.user._id).populate("dataB").exec(function(err, user){
-        if(err){
-            console.log(err);
-        } else {
+    // User.findById(req.user._id).populate("dataB").exec(function(err, user){
+    //     if(err){
+    //         console.log(err);
+    //     } else {
 
-            var databases = user.dataB;
+    //         var databases = user.dataB;
 
-            let data =[];
-            let grouped = _.groupBy(databases, function(data) {
-              return data.year;
-            });
+    //         let data =[];
+    //         let grouped = _.groupBy(databases, function(data) {
+    //           return data.year;
+    //         });
             
-            Object.keys(grouped).forEach(function(year,index) { 
-                for(let i=0;i<grouped[year].length;i++){
-                    data[index]= {
-                      "year": year,                 
-                      "db": grouped[year]   
-                  }; 
-                }  
-            }); 
+    //         Object.keys(grouped).forEach(function(year,index) { 
+    //             for(let i=0;i<grouped[year].length;i++){
+    //                 data[index]= {
+    //                   "year": year,                 
+    //                   "db": grouped[year]   
+    //               }; 
+    //             }  
+    //         }); 
 
             //console.log(JSON.stringify(data));
        
             //res.render("database/index", {database: databases, groupdata: grouped, data: data, page: 'database'});
-            console.log(JSON.stringify(data));
+            //console.log(JSON.stringify(data));
+            service.getData(req).then((data)=>{
+            //console.log("klican: " +JSON.stringify(data));
             res.json({data: data});
-        }
+        
     });
 });
 //Database New
