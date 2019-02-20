@@ -11,15 +11,19 @@ let service     = require("../services/service");
 router.get("/database", middleware.isLoggedIn, function(req, res){    
     service.getData(req).then((data)=>{
         //console.log("klican: " +JSON.stringify(data));
-        res.render("database/index", {data: data, page: 'database'});
-    });
+        res.render("database/index", {data: data, page: 'database'})
+    }).catch((err)=> {return(err)});
 });
 //json send
 router.get("/getCharData", middleware.isLoggedIn, function(req, res){
         service.getData(req).then((data)=>{
-        //console.log("klican: " +JSON.stringify(data));
-        res.json({data: data}); 
-    });
+            //res.json({data: data})
+        let chartData = service.prepareChartData(data)
+        .then((chartData)=>{
+            //console.log(chartData);
+            res.json({chartData: chartData})
+        });    
+    }).catch((err)=> {return(err)});
 });
 //Database New
 router.get("/database/new",middleware.isLoggedIn, function(req, res){

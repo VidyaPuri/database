@@ -19,7 +19,6 @@ service.getData = async function(req){
     });   
 };
 service.createData = async function(req){
-    try{
         let data ={}
         let found = await Database.find({month: req.body.month, year: req.body.year, userid: req.user._id})
             .exec()
@@ -34,10 +33,7 @@ service.createData = async function(req){
             } else {
                 console.log("This entry already exists");
                 return data;   
-            }  
-    }catch(err){
-        return(err);
-    };        
+        };
 };
 service.groupData = function(user){
     let data =[];
@@ -54,5 +50,28 @@ service.groupData = function(user){
         });
     return data;
 };
+
+service.prepareChartData = async function(data){
+    let payements =[];
+    let months = [];
+    let database = {};
+    Object.keys(data).forEach(function(idx){
+        for(let i=0;i<data[idx].db.length;i++){
+            if(data[idx].year === "2019"){
+            payements.push(data[idx].db[i].payement);
+            months.push(data[idx].db[i].month);
+            database[i] =(data[idx].db[i]);
+            }
+        }
+    });
+    let arrData = [];
+    Object.keys(database).forEach(function(d){
+        arrData.push({
+            "month": database[d].month,
+            "pay": database[d].payement
+        })
+    });
+    return arrData;
+}
 
 module.exports = service;
