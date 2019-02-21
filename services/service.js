@@ -1,10 +1,9 @@
-let User    = require("../models/user");
-let _       = require('lodash');
 let Database    = require("../models/database");
+let User        = require("../models/user");
 let calc        = require("../calc/calc");
+let _           = require('lodash');
 
 let service = {};
-
 
 service.getData = async function(req){
     return User.findById(req.user._id).populate("dataB")
@@ -50,7 +49,6 @@ service.groupData = function(user){
         });
     return data;
 };
-
 service.prepareChartData = async function(data){
     let payements =[];
     let months = [];
@@ -73,5 +71,4 @@ service.prepareChartData = async function(data){
     });
     return arrData;
 }
-
 module.exports = service;

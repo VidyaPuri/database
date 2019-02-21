@@ -1,11 +1,11 @@
-var express     = require("express");
-var router      = express.Router();
-var Database    = require("../models/database");
-var middleware  = require("../middleware");
-var User        = require("../models/user");
-var calc        = require("../calc/calc");
-var _           = require('lodash');
+let middleware  = require("../middleware");
+let Database    = require("../models/database");
 let service     = require("../services/service");
+let express     = require("express");
+let calc        = require("../calc/calc");
+let _           = require('lodash');
+
+var router      = express.Router();
 
 // INDEX
 router.get("/database", middleware.isLoggedIn, function(req, res){    
