@@ -8,6 +8,7 @@ export let apiServices = {
                 callback(xmlHttp.responseText);
             }    
         }
+        //console.log(theUrl);
         xmlHttp.open("GET", theUrl, true); // true for asynchronous 
         xmlHttp.send(null);
     }

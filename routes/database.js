@@ -17,8 +17,7 @@ router.get("/database", middleware.isLoggedIn, function(req, res){
 //json send
 router.get("/getCharData", middleware.isLoggedIn, function(req, res){
         service.getData(req).then((data)=>{
-            //res.json({data: data})
-        let chartData = service.prepareChartData(data)
+        let chartData = service.prepareChartData(data,req.query.year)
         .then((chartData)=>{
             //console.log(chartData);
             res.json({chartData: chartData})

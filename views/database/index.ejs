@@ -11,6 +11,21 @@
                 </p>
         </div>
     </header>
+
+    <div class="container nav-scroller bg-white shadow-sm">
+        <nav class="nav nav-underline">
+          <a class="nav-link active" href="#">Yearly Bar Charts</a>
+
+          <% Object.keys(data).reverse().forEach(function(idx) { %>
+            
+               <a class="nav-link year" name="<%=data[idx].year%>" href="#"><%=data[idx].year%></a>
+               
+            <% }) %>
+
+        </nav>
+    </div>
+      
+
     <div class="container d-flex justify-content-center">
         <div class="row">
             

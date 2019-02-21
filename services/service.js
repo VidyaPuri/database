@@ -49,13 +49,13 @@ service.groupData = function(user){
         });
     return data;
 };
-service.prepareChartData = async function(data){
+service.prepareChartData = async function(data, year){
     let payements =[];
     let months = [];
     let database = {};
     Object.keys(data).forEach(function(idx){
         for(let i=0;i<data[idx].db.length;i++){
-            if(data[idx].year === "2019"){
+            if(data[idx].year === year){
             payements.push(data[idx].db[i].payement);
             months.push(data[idx].db[i].month);
             database[i] =(data[idx].db[i]);
