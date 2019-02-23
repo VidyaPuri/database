@@ -19,8 +19,9 @@ service.getData = async function(req){
 };
 service.createData = async function(req){
         let data ={}
-        let found = await Database.find({month: req.body.month, year: req.body.year, userid: req.user._id})
+        let found = await Database.find({date: req.body.date, userid: req.user._id})
             .exec()
+            console.log(found);
             if(_.isEmpty(found)){
                 console.log("Creating new database entry");
                 let newDatabase = calc.calculations(req);
@@ -43,7 +44,7 @@ service.groupData = function(user){
             for(let i=0;i<grouped[year].length;i++){
                 data[index]= {
                   "year": year,                 
-                  "db": grouped[year]   
+                  "db": grouped[year] 
                 }; 
             }  
         });
@@ -70,5 +71,25 @@ service.prepareChartData = async function(data, year){
         })
     });
     return arrData;
-}
+};
+service.sortedMonths = async function(data){ 
+    let newData = [];
+    let newDB = [];
+    Object.keys(data).forEach(function(idx){
+        newDB[idx] = service.indexedMonths(data[idx].db)
+        newData[idx]={
+            "year": data[idx].year,
+            "db": newDB[idx]
+        }
+    });
+    return newData;
+};
+service.indexedMonths = function(m){
+    let months = ["January", "February", "March", "April", "May", "June",
+              "July", "August", "September", "October", "November", "December"];
+        m.sort(function(a,b){
+            return months.indexOf(a.month)- months.indexOf(b.month);
+        })
+    return m;
+};
 module.exports = service;

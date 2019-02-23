@@ -1,4 +1,6 @@
-var calc = {};
+let moment      = require('moment');
+let calc = {};
+
 calc.workdays = {
     January: "21",
     February: "19",
@@ -36,13 +38,14 @@ calc.monthlyPayement = function(rate, bonus, hours){
 
 calc.calculations = function(req){
     var database ={};
-    database.month = req.body.month;
-    database.year = req.body.year;
+    database.month = moment(req.body.date).format("MMMM");
+    database.year = Number(moment(req.body.date).format("YYYY"));
+    database.date = req.body.date;
     database.rate = Number(req.body.rate);
     database.bonus = Number(req.body.bonus);
     database.vacation = Number(req.body.vacation);
-
     database.workdays = calc.calcWorkdays(database.month);
+
     database.netdays = calc.daysNet(database.workdays, database.vacation);
     database.workhours = calc.calcHours(database.netdays);
     database.payement = calc.monthlyPayement(database.rate, database.bonus, database.workhours).toFixed(2);

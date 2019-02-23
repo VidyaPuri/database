@@ -2,8 +2,10 @@ let middleware  = require("../middleware");
 let Database    = require("../models/database");
 let service     = require("../services/service");
 let express     = require("express");
+let moment      = require("moment");
 let calc        = require("../calc/calc");
 let _           = require('lodash');
+
 
 var router      = express.Router();
 
@@ -11,7 +13,9 @@ var router      = express.Router();
 router.get("/database", middleware.isLoggedIn, function(req, res){    
     service.getData(req).then((data)=>{
         //console.log("klican: " +JSON.stringify(data));
-        res.render("database/index", {data: data, page: 'database'})
+        service.sortedMonths(data).then((newData)=>{
+            res.render("database/index", {data: newData, page: 'database'})
+        });
     }).catch((err)=> {return(err)});
 });
 //json send
@@ -32,10 +36,10 @@ router.get("/database/new",middleware.isLoggedIn, function(req, res){
 router.post("/database",middleware.isLoggedIn, function(req, res){
     service.createData(req).then((data)=>{
         if(_.isEmpty(data)){
-            req.flash("error", "Entry " + req.body.month + " " + req.body.year + " already exists in the database. Please try again");
+            req.flash("error", "Entry " + moment(req.body.date).format("MMMM") + " " + moment(req.body.date).format("YYYY") + " already exists in the database. Please try again");
             res.redirect("/database/new");
         } else {
-            req.flash("success", "Entry " + req.body.month + " " + req.body.year + " added to the database.");
+            req.flash("success", "Entry " + moment(req.body.date).format("MMMM") + " " + moment(req.body.date).format("YYYY") + " added to the database.");
             res.redirect("/database");
         }
     }).catch((err)=>{

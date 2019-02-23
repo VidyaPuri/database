@@ -59,7 +59,7 @@
                             <div class="card-deck col-lg-3 col-md-4 col-sm-6 text-center">
                                 <div class="card mb-4 shadow-sm">
                                     <div class="card-header text-white bg-primary">
-                                        <h4 class="my-0 font-weight-normal"><%=data[idx].db[i].month%> <%=data[idx].db[i].year%></h4>
+                                        <h4 class="my-0 font-weight-normal"> <%=moment(data[idx].db[i].date).format("MMMM")%> <%=data[idx].db[i].year%></h4>
                                     </div>            
                                     <div class="card-body">
                                             <h1 class="card-title pricing-card-title inline"><%=data[idx].db[i].rate%> <small class="text-muted">€/h</small></h1>
@@ -78,6 +78,7 @@
                 <% }) %>
             </div>
         </div>
+        
         <button class="btn-primary" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
     </div>
         

@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var databaseSchema = mongoose.Schema({
     month: String,
     year: Number,
+    date: String,
     rate: Number,
     bonus: Number,
     vacation: Number,

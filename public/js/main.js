@@ -20,4 +20,5 @@ function getYear(){
       buildChart(arrData);
   });
   }
+
 }
