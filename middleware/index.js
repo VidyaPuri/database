@@ -1,7 +1,10 @@
-var middlewareObj = {};
-var Comment = require("../models/comment");
-var Campground = require("../models/campground");
+var Campground  = require("../models/campground");
+let Database    = require("../models/database");
+var Comment     = require("../models/comment");
+let moment      = require("moment");
+let _           = require('lodash');
 
+var middlewareObj = {};
 middlewareObj.checkCampgroundOwnership = function(req, res, next){
         //is user logged in
     if(req.isAuthenticated()){
@@ -29,7 +32,6 @@ middlewareObj.checkCampgroundOwnership = function(req, res, next){
         res.redirect("back");
     }
 };
-
 middlewareObj.checkCommentOwnership = function(req,res,next){
   if(req.isAuthenticated()){
       Comment.findById(req.params.comment_id, function(err, foundComment){
@@ -49,7 +51,6 @@ middlewareObj.checkCommentOwnership = function(req,res,next){
       req.redirect("back");
   } 
 };
-
 middlewareObj.isLoggedIn = function(req, res, next){
     if(req.isAuthenticated()){
         return next();
@@ -57,5 +58,15 @@ middlewareObj.isLoggedIn = function(req, res, next){
     req.flash("error", "You need to be logged in to do that!");
     res.redirect("/login");
 };
-
+middlewareObj.entryExists = async function(req, res, next){
+    let found = await Database.find({date: req.body.date, userid: req.user._id}).exec();
+    console.log("Date", req.body.date);
+    console.log(found);
+    if(_.isEmpty(found)){
+        next();
+    } else {
+        req.flash("error", "Entry " + moment(req.body.date).format("MMMM") + " " + moment(req.body.date).format("YYYY") + " already exists in the database. Please try different one");
+        res.redirect("/database/new");
+    }
+}
 module.exports  = middlewareObj;

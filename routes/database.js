@@ -33,15 +33,10 @@ router.get("/database/new",middleware.isLoggedIn, function(req, res){
     res.render("database/new");
 });
 //Database Create
-router.post("/database",middleware.isLoggedIn, function(req, res){
+router.post("/database",middleware.isLoggedIn, middleware.entryExists, function(req, res){
     service.createData(req).then((data)=>{
-        if(_.isEmpty(data)){
-            req.flash("error", "Entry " + moment(req.body.date).format("MMMM") + " " + moment(req.body.date).format("YYYY") + " already exists in the database. Please try again");
-            res.redirect("/database/new");
-        } else {
             req.flash("success", "Entry " + moment(req.body.date).format("MMMM") + " " + moment(req.body.date).format("YYYY") + " added to the database.");
             res.redirect("/database");
-        }
     }).catch((err)=>{
         return(err);
     });
@@ -68,7 +63,7 @@ router.get("/database/:id/edit",middleware.isLoggedIn, function(req, res) {
     });
 });
 //Database update
-router.put("/database/:id",middleware.isLoggedIn, function(req, res){
+router.put("/database/:id",middleware.isLoggedIn, middleware.entryExists, function(req, res){
     var updatedDatabase ={};
     updatedDatabase = calc.calculations(req);
     //console.log(updatedDatabase);

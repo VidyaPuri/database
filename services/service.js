@@ -19,10 +19,10 @@ service.getData = async function(req){
 };
 service.createData = async function(req){
         let data ={}
-        let found = await Database.find({date: req.body.date, userid: req.user._id})
-            .exec()
-            console.log(found);
-            if(_.isEmpty(found)){
+        //let found = await Database.find({date: req.body.date, userid: req.user._id})
+            // .exec()
+            // console.log(found);
+            // if(_.isEmpty(found)){
                 console.log("Creating new database entry");
                 let newDatabase = calc.calculations(req);
                 let newData = await Database.create(newDatabase);
@@ -30,10 +30,10 @@ service.createData = async function(req){
                 foundUser.dataB.push(newData);
                 data = await foundUser.save();
                 return data;
-            } else {
-                console.log("This entry already exists");
-                return data;   
-        };
+        //     } else {
+        //         console.log("This entry already exists");
+        //         return data;   
+        // };
 };
 service.groupData = function(user){
     let data =[];
