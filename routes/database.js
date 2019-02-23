@@ -63,10 +63,13 @@ router.get("/database/:id/edit",middleware.isLoggedIn, function(req, res) {
     });
 });
 //Database update
-router.put("/database/:id",middleware.isLoggedIn, middleware.entryExists, function(req, res){
+router.put("/database/:id",middleware.isLoggedIn,middleware.editExists, function(req, res){
     var updatedDatabase ={};
+    console.log(req.body.date);
+    console.log(req.body.month);
+    console.log(req.body.year);
     updatedDatabase = calc.calculations(req);
-    //console.log(updatedDatabase);
+    console.log(updatedDatabase);
     Database.findByIdAndUpdate(req.params.id, updatedDatabase, function(err, updateDatabase){
         if(err){
             res.redirect("/database");

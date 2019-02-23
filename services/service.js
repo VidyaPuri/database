@@ -18,48 +18,41 @@ service.getData = async function(req){
     });   
 };
 service.createData = async function(req){
-        let data ={}
-        //let found = await Database.find({date: req.body.date, userid: req.user._id})
-            // .exec()
-            // console.log(found);
-            // if(_.isEmpty(found)){
-                console.log("Creating new database entry");
-                let newDatabase = calc.calculations(req);
-                let newData = await Database.create(newDatabase);
-                let foundUser = await User.findById(req.user._id).exec();
-                foundUser.dataB.push(newData);
-                data = await foundUser.save();
-                return data;
-        //     } else {
-        //         console.log("This entry already exists");
-        //         return data;   
-        // };
+    let data ={}
+    console.log("Creating new database entry");
+    let newDatabase = calc.calculations(req);
+    let newData = await Database.create(newDatabase);
+    let foundUser = await User.findById(req.user._id).exec();
+    foundUser.dataB.push(newData);
+    data = await foundUser.save();
+    return data;
 };
 service.groupData = function(user){
     let data =[];
-        let grouped = _.groupBy(user.dataB, function(data) {
-        return data.year;
-        });
-        Object.keys(grouped).forEach(function(year,index) { 
-            for(let i=0;i<grouped[year].length;i++){
-                data[index]= {
-                  "year": year,                 
-                  "db": grouped[year] 
-                }; 
-            }  
-        });
+    let grouped = _.groupBy(user.dataB, function(data) {
+    return data.year;
+    });
+    Object.keys(grouped).forEach(function(year,index) { 
+        for(let i=0;i<grouped[year].length;i++){
+            data[index]= {
+                "year": year,                 
+                "db": grouped[year] 
+            }; 
+        }  
+    });
     return data;
 };
 service.prepareChartData = async function(data, year){
     let payements =[];
     let months = [];
     let database = {};
-    Object.keys(data).forEach(function(idx){
-        for(let i=0;i<data[idx].db.length;i++){
-            if(data[idx].year === year){
-            payements.push(data[idx].db[i].payement);
+    let sortedData = await service.sortedMonths(data);
+    Object.keys(sortedData).forEach(function(idx){
+        for(let i=0;i<sortedData[idx].db.length;i++){
+            if(sortedData[idx].year === year){
+            payements.push(sortedData[idx].db[i].payement);
             months.push(data[idx].db[i].month);
-            database[i] =(data[idx].db[i]);
+            database[i] =(sortedData[idx].db[i]);
             }
         }
     });
