@@ -3,7 +3,7 @@ var xAxisGroup;
 var yAxisGroup;
 export function buildChart(arrData){
  
-    console.log(arrData)
+    // console.log(arrData)
     var margin = {left: 100, right: 20, top: 20, bottom: 100};
     var width = 1200 - margin.left - margin.right;
     var height = 800 - margin.top - margin.bottom; 
@@ -65,12 +65,8 @@ export function buildChart(arrData){
         // flag = !flag
         let t = d3.transition().duration(750);
     
-        x.domain(data.map(function(d) { 
-            console.log(d.month);
-            return d.month }))
-        y.domain([0, d3.max(data, function(d) {
-            console.log(d.pay)
-            return d.pay })])
+        x.domain(data.map(function(d) { return d.month }))
+        y.domain([0, d3.max(data, function(d) {return d.pay })])
         // if(flag){
         //     y.domain([0,50000]);
         // } else {
