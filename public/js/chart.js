@@ -1,18 +1,35 @@
-
+var g;
+var xAxisGroup;
+var yAxisGroup;
 export function buildChart(arrData){
-    //console.log(arrData)
+ 
+    console.log(arrData)
     var margin = {left: 100, right: 20, top: 20, bottom: 100};
     var width = 1200 - margin.left - margin.right;
     var height = 800 - margin.top - margin.bottom; 
-    
-    var g = d3.select("#chart-area")
+
+    var x = d3.scaleBand()
+        .range([0, width])
+        .padding(0.2);
+
+    var y = d3.scaleLinear()
+        .range([height, 0]);
+
+    let element = document.getElementsByTagName("svg");
+    // if(element.length>0){
+    //     console.log(arrData);
+    //     update(arrData);
+    // } else {
+    if(!element.length){    
+
+    g = d3.select("#chart-area")
         .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
         .append("g")
-            .attr("transform", "translate(" +margin.left + ", "+ margin.top + ")");
-    
-        // X label
+            .attr("transform", "translate(" +margin.left + ", "+ margin.top + ")")
+   
+    // X label
     g.append("text")
         .attr("y", height + 40)
         .attr("x", width /2)
@@ -29,46 +46,72 @@ export function buildChart(arrData){
         .attr("transform", "rotate(-90)")
         .text("Revenue");
     
-    var x = d3.scaleBand()
-        .domain(arrData.map(function(d) { return d.month }))
-        .range([0, width])
-        .padding(0.2);
-    
-    var y = d3.scaleLinear()
-        .domain([0, d3.max(arrData, function(d) { return d.pay })])
-        .range([height, 0]);
-        
-    //x axis
-    var xAxis = d3.axisBottom(x);
-    g.append("g")
+        //x axis
+    xAxisGroup = g.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0, " + height + ")")
-        .call(xAxis);
     //y axis
-    var yAxis = d3.axisLeft(y)
-        .tickFormat(function(d){
-        return "$"+d;
-        });
-    g.append("g")
+    yAxisGroup = g.append("g")
         .attr("class", "y axis")
-        .call(yAxis);
-        
-    var rects = g.selectAll("rect")
-            .data(arrData)
-            .enter()
-                .append("rect")
-                .attr("y", function(d){
-                    return y(d.pay)
-                })
-                .attr("x", function(d){
-                    return x(d.month);
-                })
-                .attr("width", x.bandwidth)
-                .attr("height", function(d){
-                    return height - y(d.pay);
-                })
+    }
+    // d3.interval(function(){
+    //     update(arrData)
+    // }, 1000);
+
+    update(arrData);
+    
+
+    function update(data){
+        // flag = !flag
+        let t = d3.transition().duration(750);
+    
+        x.domain(data.map(function(d) { 
+            console.log(d.month);
+            return d.month }))
+        y.domain([0, d3.max(data, function(d) {
+            console.log(d.pay)
+            return d.pay })])
+        // if(flag){
+        //     y.domain([0,50000]);
+        // } else {
+        //     y.domain([0,30000]);
+        // }
+        var xAxisCall = d3.axisBottom(x);
+            xAxisGroup.transition(t).call(xAxisCall);
+        var yAxisCall = d3.axisLeft(y)
+            .tickFormat(function(d){ return "$"+d; });
+            yAxisGroup.transition(t).call(yAxisCall);    
+    
+        var rects = g.selectAll("rect")
+            .data(data, function(d){
+                return d.month;
+            });
+    
+        //Exit old parameters
+        rects.exit()
+            .attr("fill", "red")
+        .transition(t)
+            .attr("y", y(0))
+            .attr("height",0)
+            .remove();  
+    
+        // ENTER new elements present in new data
+    
+        rects.enter().append("rect")
                 
-                .attr("fill", function(d) {
-                    return "blue";
-                }); 
+            .attr("width", x.bandwidth)
+            .attr("x", function(d){ return x(d.month) })
+            .attr("fill", "blue")
+            .attr("y", y(0))
+            .attr("height", 0)
+            // UPDATE old elements present in new data
+            .merge(rects)
+            .transition(t)
+                .attr("fill", "gray")
+                .attr("y", function(d){ return y(d.pay); })
+                .attr("x", function(d){ return x(d.month) })
+                .attr("height", function(d){ return height - y(d.pay); })
+                .attr("width", x.bandwidth)
+        
+    }
 }
