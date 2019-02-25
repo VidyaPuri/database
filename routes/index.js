@@ -30,8 +30,8 @@ router.post("/register", function(req, res) {
             return res.render("register", {error: err.message});
         }
         passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Welcome to YelpCamp " + user.username);
-            res.redirect("/campgrounds");
+            req.flash("success", "Welcome to Database " + user.username);
+            res.redirect("/database");
         });
     });
 });
@@ -53,7 +53,7 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req, res) {
     req.logout();
     req.flash("success", "Logged you out!");
-    res.redirect("/campgrounds");
+    res.redirect("/database");
 });
 
 //show user profile form
@@ -67,7 +67,7 @@ router.get("/users/:id", middleware.isLoggedIn, function(req, res){
             // console.log(foundUser);
             // console.log("avatar: " +foundUser.avatar);
             // console.log("id: "+ foundUser._id);
-            res.render("users/show", {user: foundUser});
+            res.render("users/show", {user: foundUser, page: "user"});
         }
     });
 });
@@ -96,14 +96,14 @@ router.put("/users/:id", function(req, res){
         description: req.body.description
     };
     
-    console.log(updatedUser);
+    //console.log(updatedUser);
     User.findOneAndUpdate(req.params.id, updatedUser, function(err, updateUser){
         if(err){
             res.redirect("/users/" + req.params.id);
             console.log("error " + err);
         } else {
             res.redirect("/users/" + req.params.id);
-            console.log("updateUser: " + updateUser);
+            //console.log("updateUser: " + updateUser);
         }
     });
 });

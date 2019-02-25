@@ -1,22 +1,18 @@
-var express         = require("express"),
+let express         = require("express"),
     app             = express(),
     bodyParser      = require("body-parser"),
     mongoose        = require("mongoose"),
     flash           = require("connect-flash"),
-    Campground      = require("./models/campground"),
-    Comment         = require("./models/comment"),
     Database        = require("./models/database"),
     methodOverride  = require("method-override"),
     passport        = require("passport"),
     LocalStrategy   = require("passport-local"),
     User            = require("./models/user")
 
-var commentRoutes       = require("./routes/comments"),
-    campgroundRoutes    = require("./routes/campgrounds"),
-    indexRoutes         = require("./routes/index"),
+let indexRoutes         = require("./routes/index"),
     databaseRoutes      = require("./routes/database")
     
-var url = process.env.DATABASEURL || "mongodb://localhost/data_tests";
+let url = process.env.DATABASEURL || "mongodb://localhost/data_tests";
 mongoose.connect(url, { useNewUrlParser: true });
 
 
@@ -50,11 +46,9 @@ app.use(function(req, res, next){
 });
 
 app.use("/",indexRoutes);
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments",commentRoutes);
 app.use("/", databaseRoutes);
 
 
 app.listen(3000, process.env.IP, function(){
-    console.log("The YelpCamp Server Has Started");
+    console.log("The Database Server Has Started");
 });
