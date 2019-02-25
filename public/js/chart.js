@@ -1,6 +1,6 @@
-var g;
-var xAxisGroup;
-var yAxisGroup;
+let g;
+let xAxisGroup;
+let yAxisGroup;
 export function buildChart(arrData){
  
     // console.log(arrData)

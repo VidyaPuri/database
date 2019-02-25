@@ -14,11 +14,13 @@
 
     <div class="container nav-scroller bg-white shadow-sm">
         <nav class="nav nav-underline">
-          <a class="nav-link active" href="#">Yearly Bar Charts</a>
+          <a class="nav-link active" data-toggle="collapse" id="toggleGraph" href="#showGraph" aria-controls="#showGraph">Show Yearly Bar Charts</a>
 
           <% Object.keys(data).reverse().forEach(function(idx) { %>
-            
-               <a class="nav-link year" name="<%=data[idx].year%>" href="#"><%=data[idx].year%></a>
+            <div>
+                <a class="nav-link year" name="<%=data[idx].year%>" href="#"><%=data[idx].year%></a>
+            </div>
+               
                
             <% }) %>
 
@@ -27,11 +29,11 @@
       
 
     <div class="container d-flex justify-content-center">
-        <div class="row">
+        <div class="row collapse" id="showGraph">
             
             <div id="chart-area">
                 
-            </div>
+        </div>
         </div>
     </div>
     <div class="container-fluid">
