@@ -13,6 +13,8 @@ let indexRoutes         = require("./routes/index"),
     databaseRoutes      = require("./routes/database")
     
 let url = process.env.DATABASEURL || "mongodb://localhost/data_tests";
+
+//mongodb://vidya:vcr3sn1k@ds161024.mlab.com:61024/vidyabase
 mongoose.connect(url, { useNewUrlParser: true });
 const port = process.env.PORT || 8000;
 
