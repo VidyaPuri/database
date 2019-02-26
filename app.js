@@ -14,7 +14,7 @@ let indexRoutes         = require("./routes/index"),
     
 let url = process.env.DATABASEURL || "mongodb://localhost/data_tests";
 mongoose.connect(url, { useNewUrlParser: true });
-
+const port = process.env.PORT || 8000;
 
 process.env.databaseURL
 app.use(bodyParser.urlencoded({extended: true}));
@@ -49,6 +49,6 @@ app.use("/",indexRoutes);
 app.use("/", databaseRoutes);
 
 
-app.listen(3000, process.env.IP, function(){
+app.listen(port, process.env.IP, function(){
     console.log("The Database Server Has Started");
 });
