@@ -13,12 +13,12 @@ let indexRoutes         = require("./routes/index"),
     databaseRoutes      = require("./routes/database")
     
 let url = process.env.DATABASEURL || "mongodb://localhost/data_tests";
-
+//
 //mongodb://vidya:vcr3sn1k@ds161024.mlab.com:61024/vidyabase
 mongoose.connect(url, { useNewUrlParser: true });
 const port = process.env.PORT || 8000;
-
-process.env.databaseURL
+console.log(process.env.DATABASEURL);
+//process.env.databaseURL
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
