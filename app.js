@@ -12,7 +12,8 @@ let express         = require("express"),
 let indexRoutes         = require("./routes/index"),
     databaseRoutes      = require("./routes/database")
     
-let url = process.env.DATABASEURL;
+//let url = process.env.DATABASEURL;
+let url = "mongodb+srv://vidya:vcr3sn1k@cluster0-yecc5.mongodb.net/test?retryWrites=true";
 //mongodb+srv://vidya:vcr3sn1k@cluster0-yecc5.mongodb.net/test?retryWrites=true
 //mongodb://vidya:vcr3sn1k@ds161024.mlab.com:61024/vidyabase
 mongoose.connect(url, { useNewUrlParser: true });
