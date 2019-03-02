@@ -12,8 +12,8 @@ let express         = require("express"),
 let indexRoutes         = require("./routes/index"),
     databaseRoutes      = require("./routes/database")
     
-//let url = process.env.DBURL || "mongodb://localhost/data_tests"
-let url = process.env.DBURL;
+let url = process.env.DBURL || "mongodb://localhost/data_tests"
+//let url = process.env.DBURL;
 console.log(process.env.DATABASEURL);
 //let url = "mongodb+srv://vidya:vcr3sn1k@cluster0-yecc5.mongodb.net/test?retryWrites=true";
 //mongodb+srv://vidya:vcr3sn1k@cluster0-yecc5.mongodb.net/test?retryWrites=true
