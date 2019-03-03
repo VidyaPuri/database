@@ -38,14 +38,15 @@ calc.calculations = async function(req){
     database.rate = Number(req.body.rate);
     database.bonus = Number(req.body.bonus);
     database.vacation = Number(req.body.vacation);
+    database.sickleave = Number(req.body.sickleave);
     database.holiday = monthData.holidays;
     database.workdays = monthData.workdays;
-
+    
     database.netdays = calc.daysNet(database.workdays, database.vacation);
     database.workhours = calc.calcHours(database.netdays);
     database.payement = calc.monthlyPayement(database.rate, database.bonus, database.workhours).toFixed(2);
     database.userid = req.user._id;
-
+    //console.log("database: ", JSON.stringify(database))
     return database;
 }
 

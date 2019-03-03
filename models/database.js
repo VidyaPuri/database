@@ -7,6 +7,7 @@ var databaseSchema = mongoose.Schema({
     rate: Number,
     bonus: Number,
     vacation: Number,
+    sickleave: Number,
     workdays: Number,
     netdays: Number,
     workhours: Number,

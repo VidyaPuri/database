@@ -20,16 +20,23 @@
                         </div>
                         <div class="form-group">
                             <label for="rate">Hourly rate:</label>
-                            <input id="rate"class="form-control" type="number" name="rate" placeholder="rate" min="0.01" step="0.01">
+                            <input id="rate"class="form-control" type="number" name="rate" value="<%=currentUser.rate %>" placeholder="rate" min="0.01" step="0.01">
                         </div>
                         <div class="form-group">
                             <label for="rate">Bonus:</label>
                             <input id="bonus" class="form-control" type="number" name="bonus" value=0 min="0" step="10">
                         </div>
-                        <div class="form-group">
-                            <label for="rate">Vacation:</label>
-                            <input id="vacation" class="form-control" type="number" name="vacation" value=0 min="0" step="0.5">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                    <label for="rate">Vacation:</label>
+                                    <input id="vacation" class="form-control" type="number" name="vacation" value=0 min="0" step="0.5">  
+                            </div>
+                            <div class="col-md-6 form-group">
+                                    <label for="rate">Sick leave:</label>
+                                    <input id="sickleave" class="form-control" type="number" name="sickleave" value=0 min="0" step="0.5">  
+                            </div>
                         </div>
+                        
                         <div class="form-group">
                             <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                         </div>

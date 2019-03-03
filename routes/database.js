@@ -67,9 +67,9 @@ router.put("/database/:id",middleware.isLoggedIn,middleware.editExists, async fu
     var updatedDatabase ={};
     // console.log(req.body.date);
     // console.log(req.body.month);
-    // console.log(req.body.year);
+    // console.log(req.body.vacation);
     updatedDatabase = await calc.calculations(req);
-    console.log(updatedDatabase);
+    console.log("updated database: ",updatedDatabase);
     Database.findByIdAndUpdate(req.params.id, updatedDatabase, function(err, updateDatabase){
         if(err){
             res.redirect("/database");
