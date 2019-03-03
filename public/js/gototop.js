@@ -14,6 +14,3 @@ function topFunction() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-function showGraph() {
-  document.getElementById("collapseGraph").collapse("show");
-}

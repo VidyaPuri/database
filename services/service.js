@@ -20,7 +20,8 @@ service.getData = async function(req){
 service.createData = async function(req){
     let data ={}
     console.log("Creating new database entry");
-    let newDatabase = calc.calculations(req);
+    let newDatabase = await calc.calculations(req);
+    console.log("newDatabase:", newDatabase)
     let newData = await Database.create(newDatabase);
     let foundUser = await User.findById(req.user._id).exec();
     foundUser.dataB.push(newData);

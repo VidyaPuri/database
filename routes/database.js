@@ -21,9 +21,9 @@ router.get("/database", middleware.isLoggedIn, function(req, res){
 //json send
 router.get("/getCharData", middleware.isLoggedIn, function(req, res){
         service.getData(req).then((data)=>{
-        let chartData = service.prepareChartData(data,req.query.year)
+        service.prepareChartData(data,req.query.year)
         .then((chartData)=>{
-            //console.log(chartData);
+            // console.log(chartData);
             res.json({chartData: chartData})
         });    
     }).catch((err)=> {return(err)});
@@ -63,12 +63,12 @@ router.get("/database/:id/edit",middleware.isLoggedIn, function(req, res) {
     });
 });
 //Database update
-router.put("/database/:id",middleware.isLoggedIn,middleware.editExists, function(req, res){
+router.put("/database/:id",middleware.isLoggedIn,middleware.editExists, async function(req, res){
     var updatedDatabase ={};
-    console.log(req.body.date);
-    console.log(req.body.month);
-    console.log(req.body.year);
-    updatedDatabase = calc.calculations(req);
+    // console.log(req.body.date);
+    // console.log(req.body.month);
+    // console.log(req.body.year);
+    updatedDatabase = await calc.calculations(req);
     console.log(updatedDatabase);
     Database.findByIdAndUpdate(req.params.id, updatedDatabase, function(err, updateDatabase){
         if(err){
