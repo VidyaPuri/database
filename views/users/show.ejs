@@ -3,35 +3,39 @@
 
 <h1>User profile</h1>
 <div id="user-profile-2" class="user-profile">
-		<div class="tabbable">
+		<div class="tabbable" ">
 			<div class="tab-content no-border padding-24">
 				<div id="home" class="tab-pane in active">
 					<div class="row">
 						<div class="col-xs-12 col-sm-3 d-flex align-items-center">
-							<span class="profile-picture ">
-								<img class="editable img-responsive img-thumbnail" alt=" Avatar" id="avatar" src="<%=user.avatar%>" onError="this.onerror=null;this.src='http://bootdey.com/img/Content/avatar/avatar6.png';">
-							</span>
+							<div class="row">
+									<h1>
+										<span class="badge badge-secondary"><%=user.username%></span>
+									</h1>
+									<span class="profile-picture ">
+											<img class="editable img-responsive img-thumbnail" alt=" Avatar" id="avatar" src="<%=user.avatar%>" onError="this.onerror=null;this.src='http://bootdey.com/img/Content/avatar/avatar6.png';">
+									</span>
+							</div>
+							
 							<div class="space space-4"></div>
 						</div><!-- /.col -->
 
 						<div class="col-xs-12 col-sm-9">
-							<h4 class="blue">
-								<span class="middle"><%=user.username%></span>
-							</h4>
+							
 
 							<div class="profile-user-info">
 								<div class="profile-info-row">
 									<div class="profile-info-name"> First Name </div>
 
 									<div class="profile-info-value">
-										<span><%=user.firstname%></span>
+										<h3><span><%=user.firstname%></span></h3>
 									</div>
 								</div>
                                 <div class="profile-info-row">
 									<div class="profile-info-name"> Last Name </div>
 
 									<div class="profile-info-value">
-										<span><%=user.lastname%></span>
+										<h3><span><%=user.lastname%></span></h3>
 									</div>
 								</div>
 								<div class="profile-info-row">
@@ -39,8 +43,8 @@
 
 									<div class="profile-info-value">
 										<i class="fa fa-map-marker light-orange bigger-110"></i>
-										<span><%=user.country%>, </span>
-										<span><%=user.city%></span>
+										<h3><span><%=user.country%>, </span></h3>
+										<h3><span><%=user.city%></span></h3>
 									</div>
 								</div>
 
@@ -48,25 +52,52 @@
 									<div class="profile-info-name"> Joined </div>
 
 									<div class="profile-info-value">
-										<span><%=moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a')%></span>
+										<strong><span><%=moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss a')%></span></strong>
 									</div>
 								</div>
-								<div>
-								    <a class="btn btn-warning" href="/users/<%=user._id %>/edit">Edit</a>
-                                    <form class="delete-form" action="/users/<%=user._id %>?_method=DELETE" method="POST">
-                                        <button class="btn btn-danger">Delete</button>
-                                    </form>
-								</div>
+								<br>
+								
 							</div>
 
 							<div class="hr hr-8 dotted"></div>
 						</div><!-- /.col -->
 					</div><!-- /.row -->
 
-					<div class="space-20"></div>
+					<br>
 
 					<div class="row">
-						<div class="col-xs-12 col-sm-6">
+						<div class="col-md-7 order-md-2 mb-4 justify-content-start" style="padding-left: 0px">
+							<h1 class="d-flex justify-content-between align-items-center mb-3">
+									<span class="text-muted">Payement rates</span>
+							
+							</h1>
+								<ul class="list-group mb-3">
+									<li class="list-group-item d-flex justify-content-between lh-condensed">
+										<div>
+										<h4 class="my-0">Rate:</h4>
+										<small class="text-muted">Hourly pay rate in €/h gross </small>
+										</div>
+										<span class="text-muted db-fonts"><%=user.rate%> €/h</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between lh-condensed">
+											<div>
+											<h4 class="my-0">Max NPU:</h4>
+											<small class="text-muted">Maximum NPU amount in € </small>
+											</div>
+											<span class="text-muted db-fonts"><%=user.maxNPU%> €</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between lh-condensed">
+											<div>
+											<h4 class="my-0">Met NPU:</h4>
+											<small class="text-muted">Met NPU which you have achieved this quarter </small>
+											</div>
+											<span class="text-muted db-fonts"><%=user.metNPU%></span>
+									</li>
+								</ul>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6" style="padding-left: 0px">
 							<div class="widget-box transparent">
 								<div class="widget-header widget-header-small">
 									<h4 class="widget-title smaller">
@@ -83,6 +114,13 @@
 							</div>
 						</div>
 					</div>
+					<br>
+					<div>
+							<a class="btn btn-warning" href="/users/<%=user._id %>/edit">Edit</a>
+							<form class="delete-form" action="/users/<%=user._id %>?_method=DELETE" method="POST">
+								<button class="btn btn-danger">Delete</button>
+							</form>
+						</div>
 				</div><!-- /#home -->
 			</div>
 		</div>
