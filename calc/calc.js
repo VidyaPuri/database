@@ -1,32 +1,18 @@
 let moment      = require('moment');
 let calc = {};
 
+
+calc.constants = {
+    malica: 6.12,
+    prevoz: 37,
+    dopust: 12.28,
+    praznik: 12.28,
+    prispevki: 22.10,
+    davek: 22.2 
+}
+
 let calendar = require("../calc/calendar");
 
-// calc.workdays = {
-//     January: "21",
-//     February: "19",
-//     March: "22",
-//     April: "19",
-//     May: "21",
-//     June: "20",
-//     July: "22",
-//     August: "22",
-//     September: "20",
-//     October: "22",
-//     November: "21",
-//     December: "19",
-// };
-// Zakaj tukaj ne morem prej iz loopa mi ni jasno
-// calc.calcWorkdays = function(mesec){
-//     var workDays;
-//     Object.keys(calc.workdays).forEach(function(month) {
-//     	if(mesec === month){
-//     	    workDays = calc.workdays[month];
-//         }
-//     });
-//     return  workDays;
-// };
 calc.daysNet = function(workDays,vacDays){
     return workDays- vacDays;
 };
@@ -59,8 +45,6 @@ calc.calculations = async function(req){
     database.workhours = calc.calcHours(database.netdays);
     database.payement = calc.monthlyPayement(database.rate, database.bonus, database.workhours).toFixed(2);
     database.userid = req.user._id;
-
-
 
     return database;
 }

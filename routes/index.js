@@ -22,7 +22,10 @@ router.post("/register", function(req, res) {
         lastname: req.body.lastname,
         avatar: req.body.avatar,
         country: req.body.country,
-        city: req.body.city
+        city: req.body.city,
+        rate: req.body.rate,
+        maxNPU: req.body.maxNPU,
+        metNPU: 0.8
     });
     User.register(newUser, req.body.password, function(err, user){
         if(err){
@@ -63,10 +66,6 @@ router.get("/users/:id", middleware.isLoggedIn, function(req, res){
             req.flash("error", "Something went wrong!");
             res.redirect("/database");
         } else {
-            // console.log(foundUser.username);
-            // console.log(foundUser);
-            // console.log("avatar: " +foundUser.avatar);
-            // console.log("id: "+ foundUser._id);
             res.render("users/show", {user: foundUser, page: "user"});
         }
     });
@@ -93,7 +92,10 @@ router.put("/users/:id", function(req, res){
         avatar: req.body.avatar,
         country: req.body.country,
         city: req.body.city,
-        description: req.body.description
+        description: req.body.description,
+        rate: req.body.rate,
+        maxNPU: req.body.maxNPU,
+        metNPU: 0.8
     };
     
     //console.log(updatedUser);

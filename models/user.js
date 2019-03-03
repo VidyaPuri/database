@@ -12,6 +12,9 @@ var UserSchema = new mongoose.Schema({
     country: String,
     avatar: String,
     description: String,
+    rate: Number,
+    maxNPU: Number,
+    metNPU: Number,
     createdAt: { type: Date, default: Date.now },
     dataB: [
         {
