@@ -23,7 +23,6 @@ var databaseSchema = mongoose.Schema({
     socialcontributuins: Number,
     taxcontributions: Number,
 
-    payment: Number,
     grosspayment: Number,
     netpayment: Number,
 

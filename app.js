@@ -14,13 +14,13 @@ let indexRoutes         = require("./routes/index"),
     
 let url = process.env.DBURL || "mongodb://localhost/data_tests"
 //let url = process.env.DBURL;
-console.log(process.env.DATABASEURL);
+//console.log(process.env.DATABASEURL);
 //let url = "mongodb+srv://vidya:vcr3sn1k@cluster0-yecc5.mongodb.net/test?retryWrites=true";
 //mongodb+srv://vidya:vcr3sn1k@cluster0-yecc5.mongodb.net/test?retryWrites=true
 //mongodb://vidya:vcr3sn1k@ds161024.mlab.com:61024/vidyabase
 mongoose.connect(url, { useNewUrlParser: true });
 const port = process.env.PORT || 8000;
-console.log(process.env.DATABASEURL);
+//console.log(process.env.DATABASEURL);
 //process.env.databaseURL
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
