@@ -51,7 +51,7 @@ service.prepareChartData = async function(data, year){
     Object.keys(sortedData).forEach(function(idx){
         for(let i=0;i<sortedData[idx].db.length;i++){
             if(sortedData[idx].year === year){
-            payements.push(sortedData[idx].db[i].payement);
+            payements.push(sortedData[idx].db[i].grosspayment);
             months.push(data[idx].db[i].month);
             database[i] =(sortedData[idx].db[i]);
             }
@@ -61,7 +61,7 @@ service.prepareChartData = async function(data, year){
     Object.keys(database).forEach(function(d){
         arrData.push({
             "month": database[d].month,
-            "pay": database[d].payement
+            "pay": database[d].grosspayment
         })
     });
     return arrData;

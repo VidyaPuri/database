@@ -74,7 +74,8 @@ router.put("/database/:id",middleware.isLoggedIn,middleware.editExists, async fu
         if(err){
             res.redirect("/database");
         } else {
-            res.redirect("/database/" + req.params.id);
+            //res.redirect("/database/" + req.params.id);
+            res.redirect("/database");
         }
     });
 });
