@@ -47,8 +47,12 @@ calc.taxContributions = function(grossPayment){
     let tax_contributions = grossPayment * (calc.constants.davek/100);
     return tax_contributions;
 }
-calc.netPayment = function(gross_payment,social_contributions, tax_contributions, cost_benefits){
-    let net_payment = gross_payment - social_contributions - tax_contributions + cost_benefits;
+calc.netSalary = function(gross_payment,social_contributions, tax_contributions){
+    let net_salary = gross_payment - social_contributions - tax_contributions;
+    return net_salary;
+}
+calc.netPayment = function(net_salary, cost_benefits){
+    let net_payment = net_salary + cost_benefits;
     return net_payment;
 }
 
@@ -94,7 +98,8 @@ calc.calculations = async function(req){
     //console.log("socialcontributions: ", database.socialcontributions);
     database.taxcontributions = Number(calc.taxContributions(database.grosspayment).toFixed(2));
     //console.log("taxcontributions: ", typeof database.taxcontributions);
-    database.netpayment = Number(calc.netPayment(database.grosspayment, database.socialcontributions, database.taxcontributions, database.costbenefits).toFixed(2));
+    database.netsalary = Number(calc.netSalary(database.grosspayment, database.socialcontributions, database.taxcontributions).toFixed(2));
+    database.netpayment = Number(calc.netPayment(database.netsalary, database.costbenefits).toFixed(2));
     //console.log("netpayment: ", typeof database.netpayment +" "+ database.netpayment);
 
     database.userid = req.user._id;

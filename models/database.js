@@ -20,10 +20,11 @@ var databaseSchema = mongoose.Schema({
     grossNPU: Number,
     
     costbenefits: Number,
-    socialcontributuins: Number,
+    socialcontributions: Number,
     taxcontributions: Number,
 
     grosspayment: Number,
+    netsalary: Number,
     netpayment: Number,
 
     userid: mongoose.SchemaTypes.ObjectId, 

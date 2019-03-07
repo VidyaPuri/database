@@ -47,6 +47,25 @@
     font-size: 24px;
 }
 
+.table .contributions {
+  color: red;
+}
+.table .benefits {
+  color: green;
+}
+.magnified {
+  font-size: 1.35rem;
+}
+.netpayout {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  border-color: black;
+}
+#netPayoutValue {
+  text-align: center;
+}
+
 #myBtn {
   display: block; /* Hidden by default */
   position: fixed; /* Fixed/sticky position */
